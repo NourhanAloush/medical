@@ -11,15 +11,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-<<<<<<< HEAD
- def create
-=======
   def index
     @users = User.paginate(page: params[:page])
   end
 
   def create
->>>>>>> updating-users
     @user = User.new(user_params)
     if @user.save
       sign_in @user
@@ -29,8 +25,6 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
-<<<<<<< HEAD
-=======
 
   def destroy
     User.find(params[:id]).destroy
@@ -53,7 +47,6 @@ class UsersController < ApplicationController
     end
   end
 
->>>>>>> updating-users
   private
 
    def user_params

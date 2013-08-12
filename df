@@ -1,0 +1,160 @@
+diff --cc app/controllers/sessions_controller.rb
+index 4c0302e,4fab3ef..0000000
+--- a/app/controllers/sessions_controller.rb
++++ b/app/controllers/sessions_controller.rb
+@@@ -4,11 -4,12 +4,20 @@@ class SessionsController < ApplicationC
+  def new
+    end
+  
+++<<<<<<< HEAD
+ +def create
+ +    user = User.find_by(email: params[:session][:email].downcase)
+ +    if user && user.authenticate(params[:session][:password])
+ +      sign_in user
+ +      redirect_to user
+++=======
++ 
++   def create
++     user = User.find_by(email: params[:session][:email].downcase)
++     if user && user.authenticate(params[:session][:password])
++       sign_in user
++       redirect_back_or user
+++>>>>>>> updating-users
+      else
+        flash.now[:error] = 'Invalid email/password combination'
+        render 'new'
+diff --cc app/controllers/users_controller.rb
+index 0c1dffe,63abe2f..0000000
+--- a/app/controllers/users_controller.rb
++++ b/app/controllers/users_controller.rb
+@@@ -7,19 -11,44 +11,52 @@@ class UsersController < ApplicationCont
+      @user = User.find(params[:id])
+    end
+  
+++<<<<<<< HEAD
+ + def create
+++=======
++   def index
++     @users = User.paginate(page: params[:page])
++   end
++ 
++   def create
+++>>>>>>> updating-users
+      @user = User.new(user_params)
+      if @user.save
+ +      sign_in @user
+        flash[:success] = "Welcome to the Sample App!"
+        redirect_to @user
+      else
+        render 'new'
+      end
+    end
+++<<<<<<< HEAD
+++=======
++ 
++   def destroy
++     User.find(params[:id]).destroy
++     flash[:success] = "User destroyed."
++     redirect_to users_url
++   end
++ 
++   def edit
++     @user = User.find(params[:id])
++   end
++ 
++   def update
++     @user = User.find(params[:id])
++     if @user.update_attributes(user_params)
++       flash[:success] = "Profile updated"
++       sign_in @user
++       redirect_to @user
++     else
++       render 'edit'
++     end
++   end
++ 
+++>>>>>>> updating-users
+    private
+  
+-     def user_params
++    def user_params
+        params.require(:user).permit(:name, :email, :password,
+                                     :password_confirmation)
+      end
+diff --cc app/helpers/sessions_helper.rb
+index 8cbbad5,e63e4d5..0000000
+--- a/app/helpers/sessions_helper.rb
++++ b/app/helpers/sessions_helper.rb
+@@@ -7,14 -7,6 +7,17 @@@ def sign_in(user
+      self.current_user = user
+    end
+  
+++<<<<<<< HEAD
+ +  def current_user=(user)
+ +    @current_user = user
+ +  end
+ +
+ +  def current_user
+ +    remember_token = User.encrypt(cookies[:remember_token])
+ +    @current_user ||= User.find_by(remember_token: remember_token)
+ +  end
+++=======
+++>>>>>>> updating-users
+  
+  def signed_in?
+      !current_user.nil?
+@@@ -24,5 -16,23 +27,27 @@@
+      self.current_user = nil
+      cookies.delete(:remember_token)
+    end
+++<<<<<<< HEAD
+ +  
+++=======
++ 
++    def current_user
++     remember_token = User.encrypt(cookies[:remember_token])
++     @current_user ||= User.find_by(remember_token: remember_token)
++   end
++ 
++   def current_user?(user)
++     user == current_user
++   end
++ 
++   def redirect_back_or(default)
++     redirect_to(session[:return_to] || default)
++     session.delete(:return_to)
++   end
++ 
++   def store_location
++     session[:return_to] = request.url
++   end
++ 
+++>>>>>>> updating-users
+    end
+diff --cc app/views/layouts/_header.html.erb
+index a7a734f,d05fcd5..0000000
+--- a/app/views/layouts/_header.html.erb
++++ b/app/views/layouts/_header.html.erb
+@@@ -7,14 -7,14 +7,22 @@@
+            <li><%= link_to "Home", root_path %></li>
+            <li><%= link_to "Help", help_path %></li>
+            <% if signed_in? %>
+++<<<<<<< HEAD
+ +            <li><%= link_to "Users", '#' %></li>
+++=======
++             <li><%= link_to "Users", users_path %></li>
+++>>>>>>> updating-users
+              <li id="fat-menu" class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Account <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Profile", current_user %></li>
+++<<<<<<< HEAD
+ +                <li><%= link_to "Settings", '#' %></li>
+++=======
++                 <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+++>>>>>>> updating-users
+                  <li class="divider"></li>
+                  <li>
+                    <%= link_to "Sign out", signout_path, method: "delete" %>

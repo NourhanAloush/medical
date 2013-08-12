@@ -7,8 +7,7 @@ def sign_in(user)
     self.current_user = user
   end
 
-<<<<<<< HEAD
-  def current_user=(user)
+def current_user=(user)
     @current_user = user
   end
 
@@ -16,8 +15,6 @@ def sign_in(user)
     remember_token = User.encrypt(cookies[:remember_token])
     @current_user ||= User.find_by(remember_token: remember_token)
   end
-=======
->>>>>>> updating-users
 
 def signed_in?
     !current_user.nil?
@@ -27,9 +24,6 @@ def signed_in?
     self.current_user = nil
     cookies.delete(:remember_token)
   end
-<<<<<<< HEAD
-  
-=======
 
    def current_user
     remember_token = User.encrypt(cookies[:remember_token])
@@ -49,5 +43,4 @@ def signed_in?
     session[:return_to] = request.url
   end
 
->>>>>>> updating-users
   end
