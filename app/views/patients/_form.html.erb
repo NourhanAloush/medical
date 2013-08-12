@@ -1,0 +1,17 @@
+<% provide(:title, 'Login') %>
+<h1>Login</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@patient) do |f| %>
+
+      <%= f.label :ID %>
+      <%= f.text_field :id %>
+
+      <%= f.label :clinic %>
+      <%= f.text_field :clinic %>
+
+      <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
