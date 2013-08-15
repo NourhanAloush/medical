@@ -2,11 +2,7 @@
   <h1>Welcome to the Medical Website</h1>
 
 
-	<% if signed_in? %>
-	  redirect_to 'patients/index'
-    <% else %>
-      
-    <% end %>
+	<%= render 'patients/form' %>
 
   
 </div>

@@ -1,5 +1,5 @@
 <% provide(:title, 'All users') %>
-<h1>All users</h1>
+<h1>Our People</h1>
 
 <%= will_paginate %>
 
@@ -9,4 +9,6 @@
 
 <%= will_paginate %>
 
-<%= link_to "Add a new user!", signup_path, class: "btn btn-large btn-primary" %>
+<% if signed_in? %>
+  <%= link_to "Add a new user!", signup_path, class: "btn btn-large btn-primary" %>
+<% end %>

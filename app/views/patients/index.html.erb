@@ -1,10 +1,28 @@
-<% provide(:title, 'All patients') %>
-<h1>All patients</h1>
+<h1>Listing patients</h1>
 
-<%= will_paginate %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><h3>Patient</h3></th>
+      <th><h3>Clinic</h3></th>
+      <th><h3>Clinic type</h3></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
 
-<ul class="patients">
-  <%= render @patients %>
-</ul>
+  <tbody>
+    <% @patients.each do |patient| %>
+      <tr>
+        <td><h5><%= patient.patient_id %></h5></td>
+        <td><h5><%= patient.clinic %></h5></td>
+        <td><h5><%= patient.clinic_type %></h5></td>
+        <td><%= link_to 'Show', patient , class: "btn btn-primary"  %></td>
+        <td><%= link_to 'Done', patient, method: :delete, data: { confirm: 'Send notifications for next patients?' }, class: "btn btn-primary"   %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<%= will_paginate %>
+<br>

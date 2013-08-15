@@ -23,7 +23,7 @@ describe PatientsController do
   # This should return the minimal set of attributes required to create a valid
   # Patient. As you add validations to Patient, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "id" => "1" } }
+  let(:valid_attributes) { { "patient_id" => "MyString" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -85,14 +85,14 @@ describe PatientsController do
       it "assigns a newly created but unsaved patient as @patient" do
         # Trigger the behavior that occurs when invalid params are submitted
         Patient.any_instance.stub(:save).and_return(false)
-        post :create, {:patient => { "id" => "invalid value" }}, valid_session
+        post :create, {:patient => { "patient_id" => "invalid value" }}, valid_session
         assigns(:patient).should be_a_new(Patient)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Patient.any_instance.stub(:save).and_return(false)
-        post :create, {:patient => { "id" => "invalid value" }}, valid_session
+        post :create, {:patient => { "patient_id" => "invalid value" }}, valid_session
         response.should render_template("new")
       end
     end
@@ -106,8 +106,8 @@ describe PatientsController do
         # specifies that the Patient created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Patient.any_instance.should_receive(:update).with({ "id" => "1" })
-        put :update, {:id => patient.to_param, :patient => { "id" => "1" }}, valid_session
+        Patient.any_instance.should_receive(:update).with({ "patient_id" => "MyString" })
+        put :update, {:id => patient.to_param, :patient => { "patient_id" => "MyString" }}, valid_session
       end
 
       it "assigns the requested patient as @patient" do
@@ -128,7 +128,7 @@ describe PatientsController do
         patient = Patient.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Patient.any_instance.stub(:save).and_return(false)
-        put :update, {:id => patient.to_param, :patient => { "id" => "invalid value" }}, valid_session
+        put :update, {:id => patient.to_param, :patient => { "patient_id" => "invalid value" }}, valid_session
         assigns(:patient).should eq(patient)
       end
 
@@ -136,7 +136,7 @@ describe PatientsController do
         patient = Patient.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Patient.any_instance.stub(:save).and_return(false)
-        put :update, {:id => patient.to_param, :patient => { "id" => "invalid value" }}, valid_session
+        put :update, {:id => patient.to_param, :patient => { "patient_id" => "invalid value" }}, valid_session
         response.should render_template("edit")
       end
     end

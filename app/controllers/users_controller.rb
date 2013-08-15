@@ -19,8 +19,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+      flash[:success] = "Created Successfully!"
+      redirect_to users_url
     else
       render 'new'
     end
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
       sign_in @user
-      redirect_to @user
+      redirect_to @users_url
     else
       render 'edit'
     end

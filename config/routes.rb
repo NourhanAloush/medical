@@ -1,9 +1,11 @@
 Damon::Application.routes.draw do
+  resources :employees
 
   resources :patients
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  root  'static_pages#home'
+  root  'patients#index'
+
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/newpatient',  to: 'patients#new',     via: 'get'

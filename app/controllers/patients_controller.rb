@@ -4,10 +4,13 @@ class PatientsController < ApplicationController
   # GET /patients
   # GET /patients.json
   def index
-    @patients = Patient.paginate(page: params[:page])
+    if signed_in?
+      @patients = Patient.all
+    else
+      redirect_to newpatient_path
+    end
   end
- 
- 
+
   # GET /patients/1
   # GET /patients/1.json
   def show
@@ -26,25 +29,10 @@ class PatientsController < ApplicationController
   # POST /patients.json
   def create
     @patient = Patient.new(patient_params)
-
-    respond_to do |format|
-      if @patient.save
-        format.html { redirect_to @patient, notice: 'Patient was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @patient }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @patient.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-
-    def create
-    @patient = Patient.new(patient_params)
     if @patient.save
-      sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+      flash[:success] = "Please wait and a message will be sent to you shortly"
+      # redirect_to @patient
+      render 'new'
     else
       render 'new'
     end
@@ -82,6 +70,6 @@ class PatientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def patient_params
-      params.require(:patient).permit(:id, :clinic)
+      params.require(:patient).permit(:patient_id, :clinic, :clinic_type)
     end
 end

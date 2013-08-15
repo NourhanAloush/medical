@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @employee.name %>
+</p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @employee.employee_id %>
+</p>
+
+<p>
+  <strong>Department:</strong>
+  <%= @employee.department %>
+</p>
+
+<p>
+  <strong>Blood group:</strong>
+  <%= @employee.blood_group %>
+</p>
+
+<p>
+  <strong>Date of birth:</strong>
+  <%= @employee.date_of_birth %>
+</p>
+
+<p>
+  <strong>Transfer:</strong>
+  <%= @employee.Transfer %>
+</p>
+
+<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<%= link_to 'Back', employees_path %>
