@@ -1,34 +1,40 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, @employee.name) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= @employee.name %> 
+      </h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @employee.name %>
-</p>
+      <h4>
+        <strong>ID:</strong>
+        <%= @employee.employee_id %>
+      </h4>
+      
+      <h4>
+        <strong>Department:</strong>
+        <%= @employee.department %>
+      </h4>
 
-<p>
-  <strong>Employee:</strong>
-  <%= @employee.employee_id %>
-</p>
+      <h4>
+         <strong>Blood group:</strong>
+          <%= @employee.blood_group %>
+      </h4>
 
-<p>
-  <strong>Department:</strong>
-  <%= @employee.department %>
-</p>
+      <h4>
+        <strong>Date of birth:</strong>
+        <%= @employee.date_of_birth %>
+      </h4>
 
-<p>
-  <strong>Blood group:</strong>
-  <%= @employee.blood_group %>
-</p>
+      <h4>
+        <strong>Transfer:</strong>
+        <%= @employee.Transfer %>
+      </h4>
+      
 
-<p>
-  <strong>Date of birth:</strong>
-  <%= @employee.date_of_birth %>
-</p>
-
-<p>
-  <strong>Transfer:</strong>
-  <%= @employee.Transfer %>
-</p>
+    </section>
+  </aside>
+</div>
 
 <%= link_to 'Edit', edit_employee_path(@employee) %> |
 <%= link_to 'Back', employees_path %>
