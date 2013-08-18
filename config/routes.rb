@@ -1,4 +1,8 @@
 Damon::Application.routes.draw do
+  resources :exams
+
+  resources :medical_exams
+
   resources :employees
 
   resources :patients

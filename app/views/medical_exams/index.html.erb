@@ -1,0 +1,31 @@
+<h1>Listing medical_exams</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Emp</th>
+      <th>Exam type</th>
+      <th>Exam time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @medical_exams.each do |medical_exam| %>
+      <tr>
+        <td><%= medical_exam.emp_id %></td>
+        <td><%= medical_exam.exam_type %></td>
+        <td><%= medical_exam.exam_time %></td>
+        <td><%= link_to 'Show', medical_exam %></td>
+        <td><%= link_to 'Edit', edit_medical_exam_path(medical_exam) %></td>
+        <td><%= link_to 'Destroy', medical_exam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Medical exam', new_medical_exam_path %>

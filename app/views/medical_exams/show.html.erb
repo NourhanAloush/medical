@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Emp:</strong>
+  <%= @medical_exam.emp_id %>
+</p>
+
+<p>
+  <strong>Exam type:</strong>
+  <%= @medical_exam.exam_type %>
+</p>
+
+<p>
+  <strong>Exam time:</strong>
+  <%= @medical_exam.exam_time %>
+</p>
+
+<%= link_to 'Edit', edit_medical_exam_path(@medical_exam) %> |
+<%= link_to 'Back', medical_exams_path %>

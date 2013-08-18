@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130815003104) do
+ActiveRecord::Schema.define(version: 20130817222819) do
 
   create_table "employees", force: true do |t|
     t.string   "name"
@@ -20,6 +20,22 @@ ActiveRecord::Schema.define(version: 20130815003104) do
     t.string   "blood_group"
     t.datetime "date_of_birth"
     t.string   "Transfer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "exams", force: true do |t|
+    t.string   "name"
+    t.integer  "max"
+    t.integer  "min"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "medical_exams", force: true do |t|
+    t.string   "emp_id"
+    t.string   "exam_type"
+    t.datetime "exam_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

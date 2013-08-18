@@ -1,14 +1,11 @@
 <h1>Listing employees</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Employee</th>
-      <th>Department</th>
-      <th>Blood group</th>
-      <th>Date of birth</th>
-      <th>Transfer</th>
+      <th><h3>Name</h3></th>
+      <th><h3>ID</h3></th>
+      <th><h3>Department</h3></th>
       <th></th>
       <th></th>
       <th></th>
@@ -18,15 +15,12 @@
   <tbody>
     <% @employees.each do |employee| %>
       <tr>
-        <td><%= employee.name %></td>
-        <td><%= employee.employee_id %></td>
-        <td><%= employee.department %></td>
-        <td><%= employee.blood_group %></td>
-        <td><%= employee.date_of_birth %></td>
-        <td><%= employee.Transfer %></td>
-        <td><%= link_to 'Show', employee %></td>
-        <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
-        <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><h5><%= employee.name %></h5></td>
+        <td><h5><%= employee.employee_id %></h5></td>
+        <td><h5><%= employee.department %></h5></td>
+        <td><%= link_to 'Show', employee, class: "btn btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_employee_path(employee), class: "btn btn-primary" %></td>
+        <td><%= link_to 'Delete', employee, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Employee', new_employee_path %>
+<%= link_to 'New Employee', new_employee_path, class: "btn btn-primary" %>
