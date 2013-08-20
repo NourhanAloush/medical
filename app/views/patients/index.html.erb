@@ -1,12 +1,14 @@
 <h1>Listing patients</h1>
 
+<%= will_paginate %>
+
 <table class="table table-striped">
   <thead>
     <tr>
       <th><h3>Patient</h3></th>
       <th><h3>Clinic</h3></th>
       <th><h3>Clinic type</h3></th>
-      <th></th>
+      <th><h3>Waiting time</h3></th>
       <th></th>
       <th></th>
     </tr>
@@ -18,11 +20,23 @@
         <td><h5><%= patient.patient_id %></h5></td>
         <td><h5><%= patient.clinic %></h5></td>
         <td><h5><%= patient.clinic_type %></h5></td>
-        <td><%= link_to 'Show', patient , class: "btn btn-primary"  %></td>
-        <td><%= link_to 'Done', patient, method: :delete, data: { confirm: 'Send notifications for next patients?' }, class: "btn btn-primary"   %></td>
+        <td><h5><%= ((Time.now - patient.updated_at)/60).to_i %></h5></td>
+
+        <% if !(patient.updated_at == patient.created_at) %>
+
+          <td><%= link_to 'Done', patient, method: :delete, data: { confirm: 'Send notifications for next patients?' }, class: "btn btn-primary"   %></td>
+        
+        <% else %>
+          <td><%= link_to 'Enter', enterpatient_path(:patient_id => patient.patient_id, :id => patient.id), class: "btn btn-primary"  %></td>
+        <% end %>
+
+        <td><%= link_to 'Show Profile', showpatient_path(:patient_id => patient.patient_id, :id => patient.id), class: "btn btn-primary"   %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+
+<%= will_paginate %>
+

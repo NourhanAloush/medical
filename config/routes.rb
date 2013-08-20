@@ -13,6 +13,8 @@ Damon::Application.routes.draw do
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/newpatient',  to: 'patients#new',     via: 'get'
+  match '/showpatient',  to: 'patients#show',     via: 'get'
+  match '/enterpatient',  to: 'patients#enter',   via: 'get'
   match '/oldpatient',  to: 'sessions#destroy', via: 'delete'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
   match '/help',    to: 'static_pages#help',    via: 'get'

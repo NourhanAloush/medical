@@ -10,10 +10,10 @@
       <%= f.text_field :patient_id %>
 
       <%= f.label :clinic %>
-      <%= f.select :clinic, [["Option 1", "Option 1"], ["Option 2", "Option 2"], ["Option 3", "Option 3"], ] %>
+      <%= f.select :clinic, [["Main Admin Clinic", "Main Admin Clinic"], ["Fem Care Clinic", "Fem Care Clinic"]] %>
 
       <%= f.label :clinic_type, "Clinic Type" %>
-      <%= f.select :clinic_type, [["Option 1", "Option 1"], ["Option 2", "Option 2"], ["Option 3", "Option 3"], ] %>
+      <%= f.select :clinic_type, [["Clinic", "Clinic"], ["Administration", "Administration"], ["VL activity", "VL activity"]] %>
 
 
       <%= f.submit "Login to the clinic", class: "btn btn-large btn-primary" %>

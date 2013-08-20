@@ -11,17 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130817222819) do
+ActiveRecord::Schema.define(version: 20130819114810) do
 
   create_table "employees", force: true do |t|
     t.string   "name"
-    t.integer  "employee_id"
+    t.string   "employee_id"
     t.string   "department"
     t.string   "blood_group"
     t.datetime "date_of_birth"
     t.string   "Transfer"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "emp_date"
+    t.string   "mobile"
   end
 
   create_table "exams", force: true do |t|

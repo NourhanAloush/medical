@@ -6,6 +6,7 @@ class PatientsController < ApplicationController
   def index
     if signed_in?
       @patients = Patient.all
+      @patients = @patients.paginate(:page => params[:page], :per_page => 12)
     else
       redirect_to newpatient_path
     end
@@ -14,6 +15,14 @@ class PatientsController < ApplicationController
   # GET /patients/1
   # GET /patients/1.json
   def show
+    @employee = Employee.where(:employee_id => params[:patient_id]).first
+    redirect_to employee_path(:id => @employee.id)
+  end
+
+  def enter
+     @patient = Patient.where(:patient_id => params[:patient_id]).first
+     @patient.update_attributes(:updated_at => Time.now)
+     redirect_to root_path  
   end
 
   # GET /patients/new

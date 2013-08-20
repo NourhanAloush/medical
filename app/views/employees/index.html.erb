@@ -1,11 +1,14 @@
 <h1>Listing employees</h1>
 
+<%= will_paginate %>
+
 <table class="table table-striped">
   <thead>
     <tr>
       <th><h3>Name</h3></th>
       <th><h3>ID</h3></th>
       <th><h3>Department</h3></th>
+      <th><h3>Mobile</h3></th>
       <th></th>
       <th></th>
       <th></th>
@@ -18,6 +21,7 @@
         <td><h5><%= employee.name %></h5></td>
         <td><h5><%= employee.employee_id %></h5></td>
         <td><h5><%= employee.department %></h5></td>
+        <td><h5><%= employee.mobile%></h5></td>
         <td><%= link_to 'Show', employee, class: "btn btn-primary" %></td>
         <td><%= link_to 'Edit', edit_employee_path(employee), class: "btn btn-primary" %></td>
         <td><%= link_to 'Delete', employee, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %></td>
@@ -27,5 +31,7 @@
 </table>
 
 <br>
+
+<%= will_paginate %>
 
 <%= link_to 'New Employee', new_employee_path, class: "btn btn-primary" %>
