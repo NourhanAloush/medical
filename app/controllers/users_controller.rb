@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :signed_in_user, only: [:edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
 
   def new
@@ -8,15 +8,15 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def index
-    @users = User.paginate(page: params[:page], :per_page => 12)
+    @users = User.paginate(page: params[:page], :per_page => 3)
   end
 
   def create
     @user = User.new(user_params)
+    @user.avatar = nil
     if @user.save
       sign_in @user
       flash[:success] = "Created Successfully!"
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
       sign_in @user
-      redirect_to @users_url
+      redirect_to users_url
     else
       render 'edit'
     end
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
 
    def user_params
       params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation)
+                                   :password_confirmation, :mobile, :avatar)
     end
 
     # Before filters

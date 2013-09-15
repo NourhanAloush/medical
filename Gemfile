@@ -8,6 +8,9 @@ gem 'bcrypt-ruby', '3.0.1'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 gem 'rufus-scheduler'
+gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+gem 'roo'
+gem "serialport", "~> 1.1.0"
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'

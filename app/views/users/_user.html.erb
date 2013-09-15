@@ -1,11 +1,18 @@
 <li>
-  <%= gravatar_for user, size: 52 %>
-  <h3> <%= user.name%> </h3>
+  <h3> <%= image_tag user.avatar.url(:thumb) %>
+  
+  <%= user.name%> </h3>
+  <h4> Mobile Number: <%= user.mobile%> </h4>
+  <h4> Email: <%= user.email%> </h4>
+  	
+
+<% if signed_in? %>
   <% if !current_user?(user) %>
     <div class="pull-right"> <%= link_to "Delete", user, method: :delete,
                                   data: { confirm: "You sure?" }, class: "btn btn-primary" %> </dic>
   <% else %>
   	<div class="pull-right"> <%= link_to "Edit", edit_user_path(user), class: "btn btn-primary"  %> </div>
   <% end %>
+<% end %> 
 
 </li>

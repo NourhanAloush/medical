@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130819114810) do
+ActiveRecord::Schema.define(version: 20130915083038) do
+
+  create_table "diseases", force: true do |t|
+    t.string "name"
+    t.string "emp_id"
+  end
 
   create_table "employees", force: true do |t|
     t.string   "name"
@@ -24,6 +29,7 @@ ActiveRecord::Schema.define(version: 20130819114810) do
     t.datetime "updated_at"
     t.date     "emp_date"
     t.string   "mobile"
+    t.string   "deptType"
   end
 
   create_table "exams", force: true do |t|
@@ -50,16 +56,38 @@ ActiveRecord::Schema.define(version: 20130819114810) do
     t.datetime "updated_at"
   end
 
+  create_table "table_users", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "mobile"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
+    t.string   "mobile"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "password_digest"
     t.string   "remember_token"
+    t.string   "password_digest"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["remember_token"], name: "index_users_on_remember_token"
+
+  create_table "vaccines", force: true do |t|
+    t.string "name"
+    t.string "emp_id"
+  end
 
 end

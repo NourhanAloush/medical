@@ -1,6 +1,4 @@
 <% provide(:title, 'employee') %>
-<h1>New Employee</h1>
-
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@employee) do |f| %>
@@ -15,6 +13,9 @@
       <%= f.label :department %>
       <%= f.text_field :department %>
 
+      <%= f.label :Module %>
+      <%= f.text_field :deptType %>
+
       <%= f.label :blood_group %>
       <%= f.text_field :blood_group %>
 
@@ -26,9 +27,6 @@
 
       <%= f.label :emp_date, "Employment date" %>
       <%= f.date_select :emp_date, :start_year => 1970 %>
-
-      <%= f.label :Transfer %>
-      <%= f.text_field :Transfer %>
 
       <%= f.submit "Create Employee", class: "btn btn-large btn-primary" %>
     <% end %>

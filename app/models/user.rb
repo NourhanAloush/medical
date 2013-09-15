@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
 
   private
 
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "default.jpg"
+
     def create_remember_token
       self.remember_token = User.encrypt(User.new_remember_token)
     end

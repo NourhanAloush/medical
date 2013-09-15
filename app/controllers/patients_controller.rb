@@ -10,13 +10,37 @@ class PatientsController < ApplicationController
     else
       redirect_to newpatient_path
     end
+t = Thread.new do
+  port_str = "/dev/ttyUSB0"
+    baud_rate = 9600
+    data_bits = 8
+    stop_bits = 1
+    parity = SerialPort::NONE
+    sp = SerialPort.new(port_str, baud_rate, data_bits, stop_bits, parity)
+    @old_id = ""
+    @conc_id = ""
+    while true do
+     @id = sp.getc
+     printf("%c", @id)
+     if(@old_id != @id)
+        @conc_id = @conc_id + @id
+      else
+         Patient.create(:patient_id => @conc_id)
+        @conc_id = ""
+      end
+      @old_id = @id
+    end
+    sp.close 
+end
+
   end
 
   # GET /patients/1
   # GET /patients/1.json
   def show
-    @employee = Employee.where(:employee_id => params[:patient_id]).first
-    redirect_to employee_path(:id => @employee.id)
+    @id = "#{params[:patient_id]}" + ".0"
+    @employee = Employee.where(:employee_id => @id).first
+    redirect_to employee_path(@employee)
   end
 
   def enter
@@ -40,8 +64,7 @@ class PatientsController < ApplicationController
     @patient = Patient.new(patient_params)
     if @patient.save
       flash[:success] = "Please wait and a message will be sent to you shortly"
-      # redirect_to @patient
-      render 'new'
+      redirect_to newpatient_path
     else
       render 'new'
     end

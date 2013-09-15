@@ -3,8 +3,13 @@ Damon::Application.routes.draw do
 
   resources :medical_exams
 
-  resources :employees
-
+  resources :employees do
+    collection {
+     post :import
+     post :add_vaccine
+     post :add_disease
+    }
+  end
   resources :patients
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
@@ -20,6 +25,8 @@ Damon::Application.routes.draw do
   match '/help',    to: 'static_pages#help',    via: 'get'
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
+  match '/add_DB', to: 'employees#add_DB', via: 'post'
+  match '/editdatabase', to: 'employees#edit_DB', via: 'get'
 
   # root_path -> '/'
   # root_url  -> 'http://localhost:3000/'

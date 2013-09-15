@@ -1,19 +1,30 @@
 <% provide(:title, @employee.name) %>
-<div class="row">
-  <aside class="span4">
+<div>
     <section>
-      <h1>
+<h1> <%= %> </h1>
+     
+      <h3>
         <%= @employee.name %> 
-      </h1>
+      </h3>
 
       <h4>
         <strong>ID:</strong>
         <%= @employee.employee_id %>
       </h4>
+
+      <h4>
+        <strong>Mobile:</strong>
+        <%= @employee.mobile %>
+      </h4>
       
       <h4>
         <strong>Department:</strong>
         <%= @employee.department %>
+      </h4>
+
+      <h4>
+        <strong>Module:</strong>
+        <%= @employee.deptType %>
       </h4>
 
       <h4>
@@ -24,17 +35,54 @@
       <h4>
         <strong>Date of birth:</strong>
         <%= @employee.date_of_birth %>
-      </h4>
+      </h4>  
 
       <h4>
-        <strong>Transfer:</strong>
-        <%= @employee.Transfer %>
-      </h4>
-      
+        <strong>Hiring Date:</strong>
+        <%= @employee.emp_date %>
+      </h4>      
 
     </section>
   </aside>
 </div>
 
-<%= link_to 'Edit', edit_employee_path(@employee) %> |
-<%= link_to 'Back', employees_path %>
+
+<div>
+
+  <h3>List of Vaccines</h3>
+
+    <% @vaccines.each do |vaccine| %>
+      <h5><%= vaccine.name %></h5>
+    <% end %>
+   <div class="span6 offset3">
+   
+    <%= form_tag add_vaccine_employees_path, multipart: true do %>
+ 
+    <h5>Add Vaccine:</h5>
+    <%= text_field_tag :name %>
+    <%= submit_tag "Add", class: "btn btn-large btn-primary"  %>
+
+    <% end %>
+  </div>
+<br>
+</div>
+
+<div>
+
+  <h3>List of Diseases</h3>
+
+    <% @diseases.each do |disease| %>
+      <h5><%= disease.name %></h5>
+    <% end %>
+   <div class="span6 offset3">
+   
+    <%= form_tag add_disease_employees_path, multipart: true do %>
+ 
+    <h5>Add Disease:</h5>
+    <%= text_field_tag :name %>
+    <%= submit_tag "Add", class: "btn btn-large btn-primary"  %>
+
+    <% end %>
+  </div>
+<br>
+</div>

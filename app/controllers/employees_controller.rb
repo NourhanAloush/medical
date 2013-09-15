@@ -1,16 +1,41 @@
 class EmployeesController < ApplicationController
+ 
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
+  
 
   # GET /employees
   # GET /employees.json
   def index
     @employees = Employee.all
-    @employees = @employees.paginate(:page => params[:page], :per_page => 12).order('name ASC')
+    @employees = @employees.paginate(:page => params[:page], :per_page => 8).order('name ASC')
   end
 
   # GET /employees/1
   # GET /employees/1.json
   def show
+    @vaccines = Vaccine.where(:emp_id => params[:employee_id])
+    @diseases = Disease.where(:emp_id => params[:employee_id])
+  end
+
+ def add_vaccine
+    @employee = Employee.find(params[:id])
+    Vaccine.create(emp_id: employee_id, name: params[:name])
+    redirect_to employees_url, notice: "employees updated."
+  end
+
+  def add_disease
+    @employee = Employee.find(params[:id])
+    Disease.create(emp_id: employee_id, name: params[:name])
+    redirect_to employees_url, notice: "employees updated."
+  end
+
+  def import
+    Employee.import(params[:file])
+    redirect_to employees_url, notice: "employees updated."
+  end
+
+  def edit_DB
+    render 'employees/database'
   end
 
   # GET /employees/new
@@ -70,6 +95,6 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit(:name, :employee_id, :department, :blood_group, :date_of_birth, :Transfer)
+      params.require(:employee).permit(:name, :employee_id, :department, :blood_group, :date_of_birth, :Transfer, :database)
     end
 end
