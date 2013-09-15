@@ -6,7 +6,7 @@ class PatientsController < ApplicationController
   def index
     if signed_in?
       @patients = Patient.all
-      @patients = @patients.paginate(:page => params[:page], :per_page => 12)
+      @patients = @patients.paginate(:page => params[:page], :per_page => 12).order('created_at ASC')
     else
       redirect_to newpatient_path
     end
@@ -92,6 +92,8 @@ end
       format.html { redirect_to patients_url }
       format.json { head :no_content }
     end
+    @newPatient = Patient.all.first
+    printf("%s" , @newPatient.name)
   end
 
   private
