@@ -62,8 +62,10 @@ end
   # POST /patients.json
   def create
     @patient = Patient.new(patient_params)
+    @id = "#{patient_params[:patient_id]}" + ".0"
+    @employee = Employee.where(:employee_id => @id).first.mobile
     if @patient.save
-      flash[:success] = "Please wait and a message will be sent to you shortly"
+      flash[:success] = "Please wait and a message will be sent to you shortly at number "+ @employee +", if wrong please check with the clinic administration"
       redirect_to newpatient_path
     else
       render 'new'

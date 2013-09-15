@@ -1,6 +1,7 @@
 class EmployeesController < ApplicationController
  
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
+  before_action :set_employee2, only: [:add_disease, :add_vaccine]
   
 
   # GET /employees
@@ -13,19 +14,21 @@ class EmployeesController < ApplicationController
   # GET /employees/1
   # GET /employees/1.json
   def show
-    @vaccines = Vaccine.where(:emp_id => params[:employee_id])
-    @diseases = Disease.where(:emp_id => params[:employee_id])
+    @vaccines = Vaccine.where(:emp_id => @employee.employee_id)
+    @diseases = Disease.where(:emp_id => @employee.employee_id)
   end
 
  def add_vaccine
-    @employee = Employee.find(params[:id])
-    Vaccine.create(emp_id: employee_id, name: params[:name])
+    @employee = Employee.where(:employee_id => params[:employee_id])
+    @vaccine = Vaccine.create(:emp_id => params[:employee_id], name: params[:name])
+    @vaccine.save
     redirect_to employees_url, notice: "employees updated."
   end
 
   def add_disease
-    @employee = Employee.find(params[:id])
-    Disease.create(emp_id: employee_id, name: params[:name])
+     @employee = Employee.where(:employee_id => params[:employee_id])
+    @disease = Disease.create(:emp_id => params[:employee_id], name: params[:name])
+    @disease.save
     redirect_to employees_url, notice: "employees updated."
   end
 
@@ -93,8 +96,12 @@ class EmployeesController < ApplicationController
       @employee = Employee.find(params[:id])
     end
 
+    def set_employee2
+      @employee = Employee.where(:employee_id => params[:employee_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit(:name, :employee_id, :department, :blood_group, :date_of_birth, :Transfer, :database)
+      params.require(:employee).permit(:id, :name, :employee_id, :department, :blood_group, :date_of_birth, :Transfer, :database)
     end
 end

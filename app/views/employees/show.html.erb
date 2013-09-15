@@ -54,32 +54,37 @@
     <% @vaccines.each do |vaccine| %>
       <h5><%= vaccine.name %></h5>
     <% end %>
-   <div class="span6 offset3">
-   
-    <%= form_tag add_vaccine_employees_path, multipart: true do %>
- 
-    <h5>Add Vaccine:</h5>
-    <%= text_field_tag :name %>
-    <%= submit_tag "Add", class: "btn btn-large btn-primary"  %>
-
-    <% end %>
-  </div>
-<br>
 
   <h3>List of Diseases</h3>
 
     <% @diseases.each do |disease| %>
       <h5><%= disease.name %></h5>
     <% end %>
+
+
+   <div class="span6 offset3">
+   
+    <%= form_tag add_vaccine_employees_path, multipart: true do %>
+ 
+    <h5>Add Vaccine:</h5>
+    <%= text_field_tag :name %>
+    <%= hidden_field_tag :employee_id, @employee.employee_id %>
+    <%= submit_tag "Add", class: "btn btn-large btn-primary"  %>
+
+    <% end %>
+  </div>
+  
    <div class="span6 offset3">
    
     <%= form_tag add_disease_employees_path, multipart: true do %>
  
     <h5>Add Disease:</h5>
     <%= text_field_tag :name %>
+    <%= hidden_field_tag :employee_id, @employee.employee_id %>
     <%= submit_tag "Add", class: "btn btn-large btn-primary"  %>
 
     <% end %>
   </div>
-<br>
+
+
 </div>

@@ -6,7 +6,6 @@
   <thead>
     <tr>
       <th><h3>Patient</h3></th>
-      <th><h3>Clinic</h3></th>
       <th><h3>Clinic type</h3></th>
       <th><h3>Waiting time</h3></th>
       <th></th>
@@ -18,7 +17,6 @@
     <% @patients.each do |patient| %>
       <tr>
         <td><h5><%= patient.patient_id %></h5></td>
-        <td><h5><%= patient.clinic %></h5></td>
         <td><h5><%= patient.clinic_type %></h5></td>
         <td><h5><%= ((Time.now - patient.updated_at)/60).to_i %></h5></td>
 
