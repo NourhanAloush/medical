@@ -67,6 +67,7 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     ffi (1.9.0)
+    hash-deep-merge (0.1.1)
     hike (1.2.3)
     i18n (0.6.4)
     jbuilder (1.0.2)
@@ -76,6 +77,9 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.0)
     json_pure (1.8.0)
+    lazy_high_charts (1.4.3)
+      bundler (>= 1.0)
+      hash-deep-merge
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -184,6 +188,7 @@ DEPENDENCIES
   coffee-rails (= 4.0.0)
   jbuilder (= 1.0.2)
   jquery-rails (= 2.2.1)
+  lazy_high_charts
   paperclip!
   pg (= 0.15.1)
   rails (= 4.0.0)

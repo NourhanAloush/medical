@@ -3,7 +3,7 @@ require 'rufus/scheduler'
 
 scheduler = Rufus::Scheduler.start_new
 
-scheduler.every '1m' do
+scheduler.every '1d' do
 	@employees = Employee.all
 	@employees.each do |employee|
 		if(employee.department == "Warehouse" && (employee.emp_date-2.day).month == Date.today.month && (employee.emp_date-2.day).day == Date.today.day)

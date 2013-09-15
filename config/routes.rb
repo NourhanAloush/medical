@@ -27,6 +27,10 @@ Damon::Application.routes.draw do
   match '/contact', to: 'static_pages#contact', via: 'get'
   match '/add_DB', to: 'employees#add_DB', via: 'post'
   match '/editdatabase', to: 'employees#edit_DB', via: 'get'
+  match '/statistics', to: 'employees#statistics', via: 'get'
+  match '/done_exams_employees', to: 'employees#doneExams', via: 'get'
+  match '/miss_exams_employees', to: 'employees#missExams', via: 'get'
+
 
   # root_path -> '/'
   # root_url  -> 'http://localhost:3000/'
