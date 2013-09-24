@@ -8,6 +8,7 @@ Damon::Application.routes.draw do
      post :import
      post :add_vaccine
      post :add_disease
+     post :search
     }
   end
   resources :patients
@@ -30,8 +31,11 @@ Damon::Application.routes.draw do
   match '/statistics', to: 'employees#statistics', via: 'get'
   match '/done_exams_employees', to: 'employees#doneExams', via: 'get'
   match '/miss_exams_employees', to: 'employees#missExams', via: 'get'
-
-
+  match '/employeesexams', to: 'employees#employees_exams', via: 'get'
+  match '/delete_vaccine', to: 'employees#delete_vaccine', via: 'get'
+  match '/delete_disease', to: 'employees#delete_disease', via: 'get'
+  match '/miss_employees', to: 'employees#miss_employees', via: 'get'
+  
   # root_path -> '/'
   # root_url  -> 'http://localhost:3000/'
 

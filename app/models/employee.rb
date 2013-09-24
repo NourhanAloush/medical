@@ -1,17 +1,30 @@
 class Employee < ActiveRecord::Base  
+	
 	def self.import(file)
 	  spreadsheet = open_spreadsheet(file)
 	  header = spreadsheet.row(1)
 	  (2..spreadsheet.last_row).each do |i|
 	    row = Hash[[header, spreadsheet.row(i)].transpose]
 	    employee = Employee.where(:employee_id => String(row["ID"])).first
-	    if(employee != nil)
-	    	employee.update_attributes(:name => String(row["Name"]), :department => String(row["GBU"]), :deptType => String(row["Module"]), 
-	    		:date_of_birth => String(row["Birth"]), :emp_date => String(row["Hiring"]), :mobile => String(row["Mobile"]), :blood_group => String(row["Blood"]))
-	    else
-	    	employee = Employee.create(:employee_id => String(row["ID"]), :name => String(row["Name"]), :department => String(row["GBU"]), :deptType => String(row["Module"]), 
-	    		:date_of_birth => String(row["Birth"]), :emp_date => String(row["Hiring"]), :mobile => String(row["Mobile"]), :blood_group => String(row["Blood"]))
-	    end
+	    if(String(row["done"]) != nil)
+		    if(employee != nil)
+		    	employee.update_attributes(:name => String(row["Name"]), :department => String(row["GBU"]), :deptType => String(row["Module"]), :card => String(row["Card"]),
+		    		:date_of_birth => String(row["Birth"]), :emp_date => String(row["Hiring"]), :mobile => String(row["Mobile"]), :blood_group => String(row["Blood"]), :done => String(row["done"]), :special => String(row["Special"]))
+		    else
+		    	employee = Employee.create(:employee_id => String(row["ID"]), :name => String(row["Name"]), :department => String(row["GBU"]), :deptType => String(row["Module"]), 
+		    		:card => String(row["Card"]), :date_of_birth => String(row["Birth"]), :emp_date => String(row["Hiring"]), :mobile => String(row["Mobile"]), 
+		    		:blood_group => String(row["Blood"]), :done => String(row["done"]), :special => String(row["Special"]))
+		    end
+		else
+			if(employee != nil)
+		    	employee.update_attributes(:name => String(row["Name"]), :department => String(row["GBU"]), :deptType => String(row["Module"]), :card => String(row["Card"]),
+		    		:date_of_birth => String(row["Birth"]), :emp_date => String(row["Hiring"]), :mobile => String(row["Mobile"]), :blood_group => String(row["Blood"]), :special => String(row["Special"]))
+		    else
+		    	employee = Employee.create(:employee_id => String(row["ID"]), :name => String(row["Name"]), :department => String(row["GBU"]), :deptType => String(row["Module"]), 
+		    		:card => String(row["Card"]), :date_of_birth => String(row["Birth"]), :emp_date => String(row["Hiring"]), :mobile => String(row["Mobile"]), 
+		    		:blood_group => String(row["Blood"]), :special => String(row["Special"]))
+		    end
+		end
 	    employee.save!
 	  end
 	end

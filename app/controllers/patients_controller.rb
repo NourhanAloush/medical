@@ -6,7 +6,7 @@ class PatientsController < ApplicationController
   def index
     if signed_in?
       @patients = Patient.all
-      @patients = @patients.paginate(:page => params[:page], :per_page => 12).order('created_at ASC')
+      @patients = @patients.paginate(:page => params[:page], :per_page => 15).order('created_at ASC')
     else
       redirect_to newpatient_path
     end
@@ -46,6 +46,10 @@ end
   def enter
      @patient = Patient.where(:patient_id => params[:patient_id]).first
      @patient.update_attributes(:updated_at => Time.now)
+     @newPatient = Patient.where(:clinic_type => @patient.clinic_type).first
+    # Send message
+    # @url = "http://webxpert-eg.com/send_sms/medical_sms.php?dial="+@newPatient.mobile+"&message=your turn is now, please go to the clinic"
+    # open(@url)
      redirect_to root_path  
   end
 
@@ -65,7 +69,11 @@ end
     @id = "#{patient_params[:patient_id]}" + ".0"
     @employee = Employee.where(:employee_id => @id).first.mobile
     if @patient.save
-      flash[:success] = "Please wait and a message will be sent to you shortly at number "+ @employee +", if wrong please check with the clinic administration"
+      if(@employee!=nil)
+        flash[:success] = "Please wait and a message will be sent to you shortly at number "+ @employee +", if wrong please check with the clinic administration"
+      else
+        flash[:success] = "your number is not found, please check with the clinic administration to add it"
+      end
       redirect_to newpatient_path
     else
       render 'new'
@@ -94,8 +102,7 @@ end
       format.html { redirect_to patients_url }
       format.json { head :no_content }
     end
-    @newPatient = Patient.all.first
-    printf("%s" , @newPatient.name)
+   
   end
 
   private

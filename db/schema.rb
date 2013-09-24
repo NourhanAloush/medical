@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130915123229) do
+ActiveRecord::Schema.define(version: 20130923123814) do
 
   create_table "diseases", force: true do |t|
     t.string "name"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 20130915123229) do
     t.string   "mobile"
     t.string   "deptType"
     t.string   "done"
+    t.string   "card"
+    t.string   "special"
   end
 
   create_table "exams", force: true do |t|

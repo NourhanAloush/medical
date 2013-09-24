@@ -42,6 +42,14 @@
         <%= @employee.emp_date %>
       </h4>  
 
+      <% if @employee.special != nil %>
+      <h4>
+        <strong>Special Group:</strong>
+        <%= @employee.special %>
+      </h4>  
+      <% end %>
+
+      <% if @medical_exams != nil %>
        <h4>
         <strong>Medical Exams today:</strong>
         <%= @medical_exams %>
@@ -49,7 +57,7 @@
 
         <%= link_to 'Done', done_exams_employees_path(:employee_id => @employee.employee_id), class: "btn btn-primary"   %>
         <%= link_to 'Miss', miss_exams_employees_path(:employee_id => @employee.employee_id), class: "btn btn-primary"   %>
-
+      <% end %>
     </section>
   </aside>
 </div>
@@ -57,18 +65,25 @@
 
 <div>
 
-  <h3>List of Vaccines</h3>
+  <% if @vaccines.count != 0 %>
+    <h3>List of Vaccines</h3>
 
     <% @vaccines.each do |vaccine| %>
-      <h5><%= vaccine.name %></h5>
+      <%= vaccine.name %>
+      <%= link_to 'Delete', delete_vaccine_path(:employee_id => @employee.employee_id, :name => vaccine.name), class: "btn btn-small"   %>
     <% end %>
+  <% end %>
 
-  <h3>List of Diseases</h3>
+  <% if @diseases.count != 0 %>
+    <h3>List of Diseases</h3>
 
     <% @diseases.each do |disease| %>
-      <h5><%= disease.name %></h5>
+      <%= disease.name %>
+      <%= link_to 'Delete', delete_disease_path(:employee_id => @employee.employee_id, :name => disease.name), class: "btn btn-small"   %>
     <% end %>
-
+  <% end %>
+    
+<h5>   </h5>
 
    <div class="span6 offset3">
    

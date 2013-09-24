@@ -8,16 +8,109 @@ class EmployeesController < ApplicationController
   # GET /employees.json
   def index
     @employees = Employee.all
-    @employees = @employees.paginate(:page => params[:page], :per_page => 8).order('name ASC')
+    @employees = @employees.paginate(:page => params[:page], :per_page => 9).order('name ASC')
+  end
+
+  def miss_employees
+    @employees = Employee.all
+    @medical_exams = []
+    @employees.each do |e|
+      if(e.done == "false" && e.department == "Warehouse" && (e.emp_date-2.day).month == Date.today.month)
+        @medical_exams << e
+      end
+      if(e.done == "false" && e.department == "Fabric Care" && (e.emp_date-2.day).month == Date.today.month)
+        @medical_exams << e
+      end
+      if(e.done == "false" && e.department == "FemCare" && (e.emp_date-2.day).month == Date.today.month && ((e.emp_date-2.day).year == Date.today.year-1 || (e.emp_date-2.day).year == Date.today.year-2 || (e.emp_date-2.day).year == Date.today.year-3)) 
+        @medical_exams << e
+      end
+      if(e.done == "false" && e.department == "FemCare" && (e.emp_date-2.day).month == Date.today.month && ((e.emp_date-2.day).year%2 == Date.today.year%2))
+        @medical_exams << e
+      end
+      if(e.done == "false" && e.department == "FemCare" && (e.emp_date-2.day).month == Date.today.month && ((e.emp_date).year+10 == Date.today.year || ((Date.today.year-(e.emp_date-2.day).year)%5==0 && Date.today.year > (e.emp_date-2.day).year+10)))
+        @medical_exams << e
+      end
+      if(e.done == "false" && (e.deptType == "Bar Soap" || e.department == "Home Care") && (e.emp_date-2.day).month == Date.today.month)
+        @medical_exams << e
+      end
+      if(e.done == "false" && e.special == "FirstAid" && (e.emp_date-2.day).month == Date.today.month)
+        @medical_exams << e
+      end
+      if(e.done == "false" && e.special == "FirstAid" && (e.emp_date-2.day).month == Date.today.month && ((  (Date.today.year - (e.emp_date-2.day).year == 20) || Date.today.year - (e.emp_date-2.day).year == 25 || Date.today.year - (e.emp_date-2.day).year == 30 || Date.today.year - (e.emp_date-2.day).year == 33 || Date.today.year - (e.emp_date-2.day).year == 36 || Date.today.year - (e.emp_date-2.day).year == 39 || Date.today.year - (e.emp_date-2.day).year >= 40)))
+        @medical_exams << e
+      end
+    end
+    @medical_exams = @medical_exams.paginate(:page => params[:page], :per_page => 9)
+    render 'employees/miss'
+  end
+
+  def employees_exams
+    @employees = Employee.all
+    @medical_exams = []
+    @employees.each do |e|
+      if(e.department == "Warehouse" && (e.emp_date-2.day).month == Date.today.month && (e.emp_date-2.day).day == Date.today.day)
+        @medical_exams << e
+      end
+      if(e.department == "Fabric Care" && (e.emp_date-2.day).month == Date.today.month && (e.emp_date-2.day).day == Date.today.day)
+        @medical_exams << e
+      end
+      if(e.department == "FemCare" && (e.emp_date-2.day).month == Date.today.month && (e.emp_date-2.day).day == Date.today.day && ((e.emp_date-2.day).year == Date.today.year-1 || (e.emp_date-2.day).year == Date.today.year-2 || (e.emp_date-2.day).year == Date.today.year-3)) 
+        @medical_exams << e
+      end
+      if(e.department == "FemCare" && (e.emp_date-2.day).month == Date.today.month && (e.emp_date-2.day).day == Date.today.day && ((e.emp_date-2.day).year%2 == Date.today.year%2))
+        @medical_exams << e
+      end
+      if(e.department == "FemCare" && (e.emp_date-2.day).month == Date.today.month && (e.emp_date-2.day).day == Date.today.day && ((e.emp_date).year+10 == Date.today.year || ((Date.today.year-(e.emp_date-2.day).year)%5==0 && Date.today.year > (e.emp_date-2.day).year+10)))
+        @medical_exams << e
+      end
+      if((e.deptType == "Bar Soap" || e.department == "Home Care") && (e.emp_date-2.day).month == Date.today.month && (e.emp_date-2.day).day == Date.today.day)
+        @medical_exams << e
+      end
+      if(e.special == "FirstAid" && (e.emp_date-2.day).month == Date.today.month && (e.emp_date-2.day).day == Date.today.day)
+        @medical_exams << e
+      end
+      if(e.special == "FirstAid" && (e.emp_date-2.day).month == Date.today.month && (e.emp_date-2.day).day == Date.today.day && ((  (Date.today.year - (e.emp_date-2.day).year == 20) || Date.today.year - (e.emp_date-2.day).year == 25 || Date.today.year - (e.emp_date-2.day).year == 30 || Date.today.year - (e.emp_date-2.day).year == 33 || Date.today.year - (e.emp_date-2.day).year == 36 || Date.today.year - (e.emp_date-2.day).year == 39 || Date.today.year - (e.emp_date-2.day).year >= 40)))
+        @medical_exams << e
+      end
+    end
+    @medical_exams = @medical_exams.paginate(:page => params[:page], :per_page => 10)
+    render 'employees/medical_exams'
   end
 
 
 
   def statistics
     @employees = Employee.all
+    @medical_exams = []
     done = 0.0;
     miss = 0.0;
     @employees.each do |e|
+      if(e.department == "Warehouse" && (e.emp_date-2.day).month == Date.today.month)
+        @medical_exams << e
+      end
+      if(e.department == "Fabric Care" && (e.emp_date-2.day).month == Date.today.month)
+        @medical_exams << e
+      end
+      if(e.department == "FemCare" && (e.emp_date-2.day).month == Date.today.month && ((e.emp_date-2.day).year == Date.today.year-1 || (e.emp_date-2.day).year == Date.today.year-2 || (e.emp_date-2.day).year == Date.today.year-3)) 
+        @medical_exams << e
+      end
+      if(e.department == "FemCare" && (e.emp_date-2.day).month == Date.today.month && ((e.emp_date-2.day).year%2 == Date.today.year%2))
+        @medical_exams << e
+      end
+      if(e.department == "FemCare" && (e.emp_date-2.day).month == Date.today.month && ((e.emp_date).year+10 == Date.today.year || ((Date.today.year-(e.emp_date-2.day).year)%5==0 && Date.today.year > (e.emp_date-2.day).year+10)))
+        @medical_exams << e
+      end
+      if((e.deptType == "Bar Soap" || e.department == "Home Care") && (e.emp_date-2.day).month == Date.today.month)
+        @medical_exams << e
+      end
+      if(e.special == "FirstAid" && (e.emp_date-2.day).month == Date.today.month)
+        @medical_exams << e
+      end
+      if(e.special == "FirstAid" && (e.emp_date-2.day).month == Date.today.month && ((  (Date.today.year - (e.emp_date-2.day).year == 20) || Date.today.year - (e.emp_date-2.day).year == 25 || Date.today.year - (e.emp_date-2.day).year == 30 || Date.today.year - (e.emp_date-2.day).year == 33 || Date.today.year - (e.emp_date-2.day).year == 36 || Date.today.year - (e.emp_date-2.day).year == 39 || Date.today.year - (e.emp_date-2.day).year >= 40)))
+        @medical_exams << e
+      end
+    end
+    @medical_exams.each do |e|
       if(e.done == "true")
         done = done+1
       end
@@ -26,13 +119,51 @@ class EmployeesController < ApplicationController
       end
     end
 
+
+
+      wh=0.0
+      fca=0.0
+      fc=0.0
+      bs=0.0
+      hc=0.0
+      fa=0.0
+
+    @medical_exams.each do |e|
+      if(e.done == "false" && e.department == "Warehouse")
+        wh = wh+1
+      end
+      if(e.done == "false" && e.department == "Fabric Care")
+        fca = fca+1
+      end
+      if(e.done == "false" && e.department == "FemCare")
+        fc = fc+1
+      end
+      if(e.done == "false" && e.deptType == "Bar Soap")
+        bs = bs+1
+      end
+      if(e.done == "false" && e.department == "Home Care")
+        hc = hc+1
+      end
+      if(e.done == "false" && e.special == "FirstAid")
+        fa = fa+1
+      end
+    end
+
+    wh = ((wh/miss)*100).to_i
+    fca = ((fca/miss)*100).to_i
+    fc = ((fc/miss)*100).to_i
+    bs = ((bs/miss)*100).to_i
+    hc = ((hc/miss)*100).to_i
+    fa = ((fa/miss)*100).to_i
+
+
     all = done + miss
     done = (done/all)*100
     miss = (miss/all)*100
 
 
    @chart = LazyHighCharts::HighChart.new('pie') do |f|
-      f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]} )
+      f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]})
       series = {
                :type=> 'pie',
                :name=> 'Medical Examination statistics',
@@ -50,8 +181,8 @@ class EmployeesController < ApplicationController
       f.options[:title][:text] = "Medical Examination"
       f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'}) 
       f.plot_options(:pie=>{
-        :allowPointSelect=>true, 
         :cursor=>"pointer" , 
+        :allowPointSelect=>true,
         :dataLabels=>{
           :enabled=>true,
           :color=>"black",
@@ -61,18 +192,58 @@ class EmployeesController < ApplicationController
         }
       })
   end
+
+
+   @chart1 = LazyHighCharts::HighChart.new('pie') do |f|
+      f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]})
+      series = {
+               :type=> 'pie',
+               :name=> 'Medical Examination statistics',
+               :data=> [
+                  ['Warehouse',   wh],
+                  ['Fabric Care',   fca],
+                  ['FemCare',   fc],
+                  ['Bar Soap',  bs],
+                  ['Home Care',   hc],
+                  {
+                     :name=> 'First Aid',    
+                     :y=> fa,
+                     :sliced=> true,
+                     :selected=> true
+                  }
+               ]
+      }
+      f.series(series)
+      f.options[:title][:text] = "Medical Examination Miss By Department"
+      f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'}) 
+      f.plot_options(:pie=>{
+        :cursor=>"pointer" , 
+        :allowPointSelect=>true,
+        :dataLabels=>{
+          :enabled=>true,
+          :color=>"black",
+          :style=>{
+            :font=>"13px Trebuchet MS, Verdana, sans-serif"
+          }
+        }
+      })
+  end
+
+
+
+
   render 'employees/statistics'
   end
 
   def doneExams
     @employee = Employee.where(:employee_id => params[:employee_id]).first
     @employee.update_attributes(:done => 'true')
-    redirect_to employees_url, notice: "employees updated."
+    redirect_to employeesexams_url, notice: "employees updated."
   end
   def missExams
     @employee = Employee.where(:employee_id => params[:employee_id]).first
     @employee.update_attributes(:done => 'false')
-    redirect_to employees_url, notice: "employees updated."
+    redirect_to employeesexams_url, notice: "employees updated."
   end
 
   # GET /employees/1
@@ -98,10 +269,10 @@ class EmployeesController < ApplicationController
     if((@employee.deptType == "Bar Soap" || @employee.department == "Home Care") && (@employee.emp_date-2.day).month == Date.today.month && (@employee.emp_date-2.day).day == Date.today.day)
       @medical_exams = "Hearing"
     end
-    if(@employee.department == "FirstAid" && (@employee.emp_date-2.day).month == Date.today.month && (@employee.emp_date-2.day).day == Date.today.day)
+    if(@employee.special == "FirstAid" && (@employee.emp_date-2.day).month == Date.today.month && (@employee.emp_date-2.day).day == Date.today.day)
       @medical_exams = "Hearing, Enzyme, Respiratory, PFT, General Examination & Fitness"
     end
-    if(@employee.department == "FirstAid" && (@employee.emp_date-2.day).month == Date.today.month && (@employee.emp_date-2.day).day == Date.today.day && ((  (Date.today.year - (@employee.emp_date-2.day).year == 20) || Date.today.year - (@employee.emp_date-2.day).year == 25 || Date.today.year - (@employee.emp_date-2.day).year == 30 || Date.today.year - (@employee.emp_date-2.day).year == 33 || Date.today.year - (@employee.emp_date-2.day).year == 36 || Date.today.year - (@employee.emp_date-2.day).year == 39 || Date.today.year - (@employee.emp_date-2.day).year >= 40)))
+    if(@employee.special == "FirstAid" && (@employee.emp_date-2.day).month == Date.today.month && (@employee.emp_date-2.day).day == Date.today.day && ((  (Date.today.year - (@employee.emp_date-2.day).year == 20) || Date.today.year - (@employee.emp_date-2.day).year == 25 || Date.today.year - (@employee.emp_date-2.day).year == 30 || Date.today.year - (@employee.emp_date-2.day).year == 33 || Date.today.year - (@employee.emp_date-2.day).year == 36 || Date.today.year - (@employee.emp_date-2.day).year == 39 || Date.today.year - (@employee.emp_date-2.day).year >= 40)))
       @medical_exams = "ECG"
     end
 
@@ -109,22 +280,42 @@ class EmployeesController < ApplicationController
   end
 
  def add_vaccine
-    @employee = Employee.where(:employee_id => params[:employee_id])
+    @employee = Employee.where(:employee_id => params[:employee_id]).first
     @vaccine = Vaccine.create(:emp_id => params[:employee_id], name: params[:name])
     @vaccine.save
-    redirect_to employees_url, notice: "employees updated."
+    redirect_to @employee, notice: "employees updated."
   end
 
   def add_disease
-     @employee = Employee.where(:employee_id => params[:employee_id])
+     @employee = Employee.where(:employee_id => params[:employee_id]).first
     @disease = Disease.create(:emp_id => params[:employee_id], name: params[:name])
     @disease.save
-    redirect_to employees_url, notice: "employees updated."
+    redirect_to @employee, notice: "employees updated."
+  end
+
+  def delete_vaccine
+    @employee = Employee.where(:employee_id => params[:employee_id]).first
+    @vaccine = Vaccine.where(:emp_id => params[:employee_id], name: params[:name]).first
+    @vaccine.destroy
+    redirect_to @employee, notice: "employees updated."
+  end
+
+  def delete_disease
+     @employee = Employee.where(:employee_id => params[:employee_id]).first
+    @disease = Disease.where(:emp_id => params[:employee_id], name: params[:name]).first
+    @disease.destroy
+    redirect_to @employee, notice: "employees updated."
   end
 
   def import
     Employee.import(params[:file])
     redirect_to employees_url, notice: "employees updated."
+  end
+
+  def search
+    @employees = Employee.where(:special => params[:word])
+    @employees = @employees.paginate(:page => params[:page], :per_page => 10).order('name ASC')
+    render 'employees/search'
   end
 
   def edit_DB

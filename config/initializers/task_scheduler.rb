@@ -30,11 +30,11 @@ scheduler.every '1d' do
 			printf("%s", employee.name)
 			printf("%s", "Hearing")
 		end
-		if(employee.department == "FirstAid" && (employee.emp_date-2.day).month == Date.today.month && (employee.emp_date-2.day).day == Date.today.day)
+		if(employee.special == "FirstAid" && (employee.emp_date-2.day).month == Date.today.month && (employee.emp_date-2.day).day == Date.today.day)
 			printf("%s", employee.name)
 			printf("%s", "Hearing, Enzyme, Respiratory, PFT, General Examination & Fitness")
 		end
-		if(employee.department == "FirstAid" && (employee.emp_date-2.day).month == Date.today.month && (employee.emp_date-2.day).day == Date.today.day && ((  (Date.today.year - (employee.emp_date-2.day).year == 20) || Date.today.year - (employee.emp_date-2.day).year == 25 || Date.today.year - (employee.emp_date-2.day).year == 30 || Date.today.year - (employee.emp_date-2.day).year == 33 || Date.today.year - (employee.emp_date-2.day).year == 36 || Date.today.year - (employee.emp_date-2.day).year == 39 || Date.today.year - (employee.emp_date-2.day).year >= 40)))
+		if(employee.special == "FirstAid" && (employee.emp_date-2.day).month == Date.today.month && (employee.emp_date-2.day).day == Date.today.day && ((  (Date.today.year - (employee.emp_date-2.day).year == 20) || Date.today.year - (employee.emp_date-2.day).year == 25 || Date.today.year - (employee.emp_date-2.day).year == 30 || Date.today.year - (employee.emp_date-2.day).year == 33 || Date.today.year - (employee.emp_date-2.day).year == 36 || Date.today.year - (employee.emp_date-2.day).year == 39 || Date.today.year - (employee.emp_date-2.day).year >= 40)))
 			printf("%s", employee.name)
 			printf("%s", "ECG")
 		end

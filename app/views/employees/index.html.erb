@@ -2,6 +2,19 @@
 
 <%= will_paginate %>
 
+<div class="row">
+  <div class="span6 offset3">
+   
+  <%= form_tag search_employees_path, multipart: true do %>
+
+   <%= text_field_tag :word %>
+    <%= submit_tag "Search", class: "btn btn-large btn-primary"  %>
+
+    <% end %>
+  </div>
+</div>
+
+
 <table class="table table-striped">
   <thead>
     <tr>
