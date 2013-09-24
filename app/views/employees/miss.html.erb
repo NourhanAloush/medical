@@ -1,0 +1,30 @@
+<h1>Missed Medical exams</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><h3>Name</h3></th>
+      <th><h3>ID</h3></th>
+      <th><h3>Department</h3></th>
+      <th><h3>Mobile</h3></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @medical_exams.each do |employee| %>
+      <tr>
+        <td><h5><%= employee.name %></h5></td>
+        <td><h5><%= employee.employee_id %></h5></td>
+        <td><h5><%= employee.department %></h5></td>
+        <td><h5><%= employee.mobile%></h5></td>
+        <td><%= link_to 'Show', employee, class: "btn btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_employee_path(employee), class: "btn btn-primary" %></td>
+        <td><%= link_to 'Delete', employee, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
