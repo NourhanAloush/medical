@@ -8,7 +8,7 @@ class EmployeesController < ApplicationController
   # GET /employees.json
   def index
     @employees = Employee.all
-    @employees = @employees.paginate(:page => params[:page], :per_page => 9).order('name ASC')
+    @employees = @employees.paginate(:page => params[:page], :per_page => 8).order('name ASC')
   end
 
   def miss_employees
