@@ -47,9 +47,9 @@ end
      @patient = Patient.where(:patient_id => params[:patient_id]).first
      @patient.update_attributes(:updated_at => Time.now)
      @newPatient = Patient.where(:clinic_type => @patient.clinic_type).first
-    # Send message
-    # @url = "http://webxpert-eg.com/send_sms/medical_sms.php?dial="+@newPatient.mobile+"&message=your turn is now, please go to the clinic"
-    # open(@url)
+     # Send message
+     @url = "http://webxpert-eg.com/send_sms/medical_sms.php?dial=201115229658&message=your turn is now, please go to the clinic"
+     open(@url)
      redirect_to root_path  
   end
 
