@@ -3,11 +3,3 @@
           <%= raw "options.tooltip.formatter = function() {return this.point.name +'</b>: '+ this.y +' %';}"  %>
           <%= raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 0) return this.point.name; }"  %>
 <% end %>
-
-<%= high_chart("my_id5", @chart1) do |c| %>
-          <%= raw "options.tooltip.formatter = function() {return this.point.name +'</b>: '+ this.y +' %';}"  %>
-          <%= raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 0) return this.point.name; }"  %>
-<% end %>
-
-
-<%= link_to 'Show Miss', miss_employees_path, class: "btn btn-primary"   %>

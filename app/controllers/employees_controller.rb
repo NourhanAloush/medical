@@ -120,43 +120,6 @@ class EmployeesController < ApplicationController
     end
 
 
-
-      wh=0.0
-      fca=0.0
-      fc=0.0
-      bs=0.0
-      hc=0.0
-      fa=0.0
-
-    @medical_exams.each do |e|
-      if(e.done == "false" && e.department == "Warehouse")
-        wh = wh+1
-      end
-      if(e.done == "false" && e.department == "Fabric Care")
-        fca = fca+1
-      end
-      if(e.done == "false" && e.department == "FemCare")
-        fc = fc+1
-      end
-      if(e.done == "false" && e.deptType == "Bar Soap")
-        bs = bs+1
-      end
-      if(e.done == "false" && e.department == "Home Care")
-        hc = hc+1
-      end
-      if(e.done == "false" && e.special == "FirstAid")
-        fa = fa+1
-      end
-    end
-
-    wh = ((wh/miss)*100).to_i
-    fca = ((fca/miss)*100).to_i
-    fc = ((fc/miss)*100).to_i
-    bs = ((bs/miss)*100).to_i
-    hc = ((hc/miss)*100).to_i
-    fa = ((fa/miss)*100).to_i
-
-
     all = done + miss
     done = (done/all)*100
     miss = (miss/all)*100
@@ -194,40 +157,6 @@ class EmployeesController < ApplicationController
   end
 
 
-   @chart1 = LazyHighCharts::HighChart.new('pie') do |f|
-      f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]})
-      series = {
-               :type=> 'pie',
-               :name=> 'Medical Examination statistics',
-               :data=> [
-                  ['Warehouse',   wh],
-                  ['Fabric Care',   fca],
-                  ['FemCare',   fc],
-                  ['Bar Soap',  bs],
-                  ['Home Care',   hc],
-                  {
-                     :name=> 'First Aid',    
-                     :y=> fa,
-                     :sliced=> true,
-                     :selected=> true
-                  }
-               ]
-      }
-      f.series(series)
-      f.options[:title][:text] = "Medical Examination Miss By Department"
-      f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'}) 
-      f.plot_options(:pie=>{
-        :cursor=>"pointer" , 
-        :allowPointSelect=>true,
-        :dataLabels=>{
-          :enabled=>true,
-          :color=>"black",
-          :style=>{
-            :font=>"13px Trebuchet MS, Verdana, sans-serif"
-          }
-        }
-      })
-  end
 
 
 
