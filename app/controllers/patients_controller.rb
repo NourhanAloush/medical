@@ -19,11 +19,11 @@ t = Thread.new do
     sp = SerialPort.new(port_str, baud_rate, data_bits, stop_bits, parity)
     @id = 1
     while true do
-      @id = @id + 1
-      Patient.first.update_attributes(:patient_id => @id)
-      #   @char = sp.getc
+        @char = sp.getc
       #   printf('%c', @char)
-      #   if(@char =~ /\n/)
+        if(@char =~ /\n/)
+          @id = @id + 1
+      Patient.first.update_attributes(:patient_id => @id)
       #     @id = @id.strip 
       #     @id = (@id[21..46].to_i(2)).to_s
       #     @id = "#{@id}" + ".0"
@@ -31,7 +31,7 @@ t = Thread.new do
       #     @patient = Patient.new(:patient_id => (@emp.employee_id.slice(0..(@emp.employee_id.index('.0')-1))), :clinic_type => "clinic")
       #     @patient.save
       #     @id = ""
-      #   else
+        else
       #     if(@char == "0")
       #       @id = @id + "0000"
       #     elsif(@char == "1")
@@ -66,7 +66,7 @@ t = Thread.new do
       #       @id = @id + "1111"
       #     end
       #   end
-      # end    
+      end    
     end
     sp.close 
 end
