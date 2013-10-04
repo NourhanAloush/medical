@@ -90,13 +90,14 @@ end
      @patient.update_attributes(:updated_at => Time.now)
      @newPatient = Patient.where(:clinic_type => @patient.clinic_type).first
      
+     if(@newPatient != nil)
       require 'net/https'
       require 'uri'
 
       pass = Password.first.pass
        
-      url = URI.parse('http://smpp2.routesms.com:8080/bulksms/bulksms?username=webxprt&password='+pass+'&type=2&dlr=0&destination='+@employee.mobile+'&source=00201205355585&message=062306450627064506430020066106600020062f0642062706260642')
-      req = Net::HTTP::Post.new(URI.parse('http://smpp2.routesms.com:8080/bulksms/bulksms?username=webxprt&password='+pass+'&type=2&dlr=0&destination='+@employee.mobile+'&source=source=00201205355585&message=062306450627064506430020066106600020062f0642062706260642'))  
+      url = URI.parse('http://smpp2.routesms.com:8080/bulksms/bulksms?username=webxprt&password='+pass+'&type=2&dlr=0&destination=201115229658&source=00201115229658&message=062306450627064506430020066106600020062f0642062706260642')
+      req = Net::HTTP::Post.new(URI.parse('http://smpp2.routesms.com:8080/bulksms/bulksms?username=webxprt&password='+pass+'&type=2&dlr=0&destination=201115229658&source=source=00201115229658&message=062306450627064506430020066106600020062f0642062706260642'))  
        
       http = Net::HTTP.new(url.host, url.port)
       http.use_ssl = true if url.scheme == "https"  # enable SSL/TLS
@@ -106,7 +107,7 @@ end
           puts res.body     
         }
       }
-
+    end
      redirect_to root_path  
   end
 
