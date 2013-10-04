@@ -56,3 +56,66 @@ scheduler.every '1d' do
 		end
 	end
 end
+
+
+scheduler.every '1y' do
+
+
+	port_str = "/dev/ttyUSB0"
+    baud_rate = 9600
+    data_bits = 8
+    stop_bits = 1
+    parity = SerialPort::NONE
+    sp = SerialPort.new(port_str, baud_rate, data_bits, stop_bits, parity)
+    @id = ""
+    while true do
+        @char = sp.getc
+        printf('%c', @char)
+        if(@char =~ /\n/)
+          @id = @id.strip 
+          @id = (@id[21..46].to_i(2)).to_s
+          @id = "#{@id}" + ".0"
+          @emp = Employee.where(:card => @id).first
+          @patient = Patient.new(:patient_id => (@emp.employee_id.slice(0..(@emp.employee_id.index('.0')-1))), :clinic_type => "clinic")
+          @patient.save
+          @id = ""
+        else
+          if(@char == "0")
+            @id = @id + "0000"
+          elsif(@char == "1")
+            @id = @id + "0001"
+          elsif(@char == "2")
+            @id = @id + "0010"
+          elsif(@char == "3")
+            @id = @id + "0011"
+          elsif(@char == "4")
+            @id = @id + "0100"
+          elsif(@char == "5")
+            @id = @id + "0101"
+          elsif(@char == "6")
+            @id = @id + "0110"
+          elsif(@char == "7")
+            @id = @id + "0111"
+          elsif(@char == "8")
+            @id = @id + "1000"
+          elsif(@char == "9")
+            @id = @id + "1001"
+          elsif(@char == "A")
+            @id = @id + "1010"
+          elsif(@char == "B")
+            @id = @id + "1011"
+          elsif(@char == "C")
+            @id = @id + "1100"
+          elsif(@char == "D")
+            @id = @id + "1101"
+          elsif(@char == "E")
+            @id = @id + "1110"
+          elsif(@char == "F")
+            @id = @id + "1111"
+          end
+        end
+      end    
+    end
+	sp.close 
+
+end
