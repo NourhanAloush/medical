@@ -66,6 +66,8 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     ffi (1.9.0)
     hash-deep-merge (0.1.1)
     hike (1.2.3)
@@ -87,6 +89,7 @@ GEM
     mini_portile (0.5.1)
     minitest (4.7.5)
     multi_json (1.7.8)
+    multipart-post (1.2.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     pg (0.15.1)
@@ -186,6 +189,7 @@ DEPENDENCIES
   bootstrap-will_paginate (= 0.0.9)
   capybara (= 2.1.0)
   coffee-rails (= 4.0.0)
+  faraday
   jbuilder (= 1.0.2)
   jquery-rails (= 2.2.1)
   lazy_high_charts
