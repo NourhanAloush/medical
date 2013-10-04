@@ -58,7 +58,7 @@ scheduler.every '1d' do
 end
 
 
-scheduler.every '1y' do
+scheduler.every '1s' do
 
 
 	port_str = "/dev/ttyUSB0"
@@ -113,8 +113,7 @@ scheduler.every '1y' do
           elsif(@char == "F")
             @id = @id + "1111"
           end
-        end
-      end    
+        end    
     end
 	sp.close 
 
