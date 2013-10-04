@@ -12,6 +12,7 @@ gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'roo'
 gem "serialport", "~> 1.1.0"
 gem 'lazy_high_charts'
+gem 'faraday'
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'

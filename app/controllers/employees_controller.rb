@@ -85,28 +85,28 @@ class EmployeesController < ApplicationController
     done = 0.0;
     miss = 0.0;
     @employees.each do |e|
-      if(e.have_exam == "true" && e.department == "Warehouse" && (e.emp_date-2.day).month == Date.today.month)
+      if(e.department == "Warehouse" && (e.emp_date-2.day).month == Date.today.month)
         @medical_exams << e
       end
-      if(e.have_exam == "true" && e.department == "Fabric Care" && (e.emp_date-2.day).month == Date.today.month)
+      if(e.department == "Fabric Care" && (e.emp_date-2.day).month == Date.today.month)
         @medical_exams << e
       end
-      if(e.have_exam == "true" && e.department == "FemCare" && (e.emp_date-2.day).month == Date.today.month && ((e.emp_date-2.day).year == Date.today.year-1 || (e.emp_date-2.day).year == Date.today.year-2 || (e.emp_date-2.day).year == Date.today.year-3)) 
+      if(e.department == "FemCare" && (e.emp_date-2.day).month == Date.today.month && ((e.emp_date-2.day).year == Date.today.year-1 || (e.emp_date-2.day).year == Date.today.year-2 || (e.emp_date-2.day).year == Date.today.year-3)) 
         @medical_exams << e
       end
-      if(e.have_exam == "true" && e.department == "FemCare" && (e.emp_date-2.day).month == Date.today.month && ((e.emp_date-2.day).year%2 == Date.today.year%2))
+      if(e.department == "FemCare" && (e.emp_date-2.day).month == Date.today.month && ((e.emp_date-2.day).year%2 == Date.today.year%2))
         @medical_exams << e
       end
-      if(e.have_exam == "true" && e.department == "FemCare" && (e.emp_date-2.day).month == Date.today.month && ((e.emp_date).year+10 == Date.today.year || ((Date.today.year-(e.emp_date-2.day).year)%5==0 && Date.today.year > (e.emp_date-2.day).year+10)))
+      if(e.department == "FemCare" && (e.emp_date-2.day).month == Date.today.month && ((e.emp_date).year+10 == Date.today.year || ((Date.today.year-(e.emp_date-2.day).year)%5==0 && Date.today.year > (e.emp_date-2.day).year+10)))
         @medical_exams << e
       end
-      if(e.have_exam == "true" &&(e.deptType == "Bar Soap" || e.department == "Home Care") && (e.emp_date-2.day).month == Date.today.month)
+      if((e.deptType == "Bar Soap" || e.department == "Home Care") && (e.emp_date-2.day).month == Date.today.month)
         @medical_exams << e
       end
-      if(e.have_exam == "true" && e.special == "FirstAid" && (e.emp_date-2.day).month == Date.today.month)
+      if(e.special == "FirstAid" && (e.emp_date-2.day).month == Date.today.month)
         @medical_exams << e
       end
-      if(e.have_exam == "true" && e.special == "FirstAid" && (e.emp_date-2.day).month == Date.today.month && ((  (Date.today.year - (e.emp_date-2.day).year == 20) || Date.today.year - (e.emp_date-2.day).year == 25 || Date.today.year - (e.emp_date-2.day).year == 30 || Date.today.year - (e.emp_date-2.day).year == 33 || Date.today.year - (e.emp_date-2.day).year == 36 || Date.today.year - (e.emp_date-2.day).year == 39 || Date.today.year - (e.emp_date-2.day).year >= 40)))
+      if(e.special == "FirstAid" && (e.emp_date-2.day).month == Date.today.month && ((  (Date.today.year - (e.emp_date-2.day).year == 20) || Date.today.year - (e.emp_date-2.day).year == 25 || Date.today.year - (e.emp_date-2.day).year == 30 || Date.today.year - (e.emp_date-2.day).year == 33 || Date.today.year - (e.emp_date-2.day).year == 36 || Date.today.year - (e.emp_date-2.day).year == 39 || Date.today.year - (e.emp_date-2.day).year >= 40)))
         @medical_exams << e
       end
     end
