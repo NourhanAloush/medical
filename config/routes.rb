@@ -1,4 +1,6 @@
 Damon::Application.routes.draw do
+  resources :passwords
+
   resources :exams
 
   resources :medical_exams
@@ -9,6 +11,7 @@ Damon::Application.routes.draw do
      post :add_vaccine
      post :add_disease
      post :search
+     post :updatepassword
     }
   end
   resources :patients
@@ -35,7 +38,8 @@ Damon::Application.routes.draw do
   match '/delete_vaccine', to: 'employees#delete_vaccine', via: 'get'
   match '/delete_disease', to: 'employees#delete_disease', via: 'get'
   match '/miss_employees', to: 'employees#miss_employees', via: 'get'
-  
+  match '/change_password', to: 'employees#change_password', via: 'get'
+
   # root_path -> '/'
   # root_url  -> 'http://localhost:3000/'
 

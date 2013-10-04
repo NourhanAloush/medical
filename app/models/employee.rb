@@ -8,20 +8,20 @@ class Employee < ActiveRecord::Base
 	    employee = Employee.where(:employee_id => String(row["ID"])).first
 	    if(String(row["done"]) != nil)
 		    if(employee != nil)
-		    	employee.update_attributes(:name => String(row["Name"]), :department => String(row["GBU"]), :deptType => String(row["Module"]), :card => String(row["Card"]),
+		    	employee.update_attributes(:name => String(row["Name"]), :department => String(row["GBU"]), :deptType => String(row["Module"]), :card => String(row["Card"]), :have_exam => String(row["Have_Exam"]),
 		    		:date_of_birth => String(row["Birth"]), :emp_date => String(row["Hiring"]), :mobile => String(row["Mobile"]), :blood_group => String(row["Blood"]), :done => String(row["done"]), :special => String(row["Special"]))
 		    else
 		    	employee = Employee.create(:employee_id => String(row["ID"]), :name => String(row["Name"]), :department => String(row["GBU"]), :deptType => String(row["Module"]), 
 		    		:card => String(row["Card"]), :date_of_birth => String(row["Birth"]), :emp_date => String(row["Hiring"]), :mobile => String(row["Mobile"]), 
-		    		:blood_group => String(row["Blood"]), :done => String(row["done"]), :special => String(row["Special"]))
+		    		:blood_group => String(row["Blood"]), :done => String(row["done"]), :special => String(row["Special"]), :have_exam => String(row["Have_Exam"]))
 		    end
 		else
 			if(employee != nil)
-		    	employee.update_attributes(:name => String(row["Name"]), :department => String(row["GBU"]), :deptType => String(row["Module"]), :card => String(row["Card"]),
+		    	employee.update_attributes(:name => String(row["Name"]), :department => String(row["GBU"]), :deptType => String(row["Module"]), :card => String(row["Card"]), :have_exam => String(row["Have_Exam"]),
 		    		:date_of_birth => String(row["Birth"]), :emp_date => String(row["Hiring"]), :mobile => String(row["Mobile"]), :blood_group => String(row["Blood"]), :special => String(row["Special"]))
 		    else
 		    	employee = Employee.create(:employee_id => String(row["ID"]), :name => String(row["Name"]), :department => String(row["GBU"]), :deptType => String(row["Module"]), 
-		    		:card => String(row["Card"]), :date_of_birth => String(row["Birth"]), :emp_date => String(row["Hiring"]), :mobile => String(row["Mobile"]), 
+		    		:card => String(row["Card"]), :date_of_birth => String(row["Birth"]), :emp_date => String(row["Hiring"]), :mobile => String(row["Mobile"]), :have_exam => String(row["Have_Exam"]), 
 		    		:blood_group => String(row["Blood"]), :special => String(row["Special"]))
 		    end
 		end
